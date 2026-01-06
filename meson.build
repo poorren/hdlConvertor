@@ -23,7 +23,7 @@ cc = meson.get_compiler('cpp')
 EXTRA_CXX_FLAGS = []
 EXTRA_LD_FLAGS = []
 if meson.get_compiler('cpp').get_id() == 'msvc'
-	EXTRA_CXX_FLAGS += ['-MP /wd4251', '/bigobj'] # https://github.com/antlr/antlr4/blob/dev/runtime/Cpp/demo/CMakeLists.txt
+	EXTRA_CXX_FLAGS += ['-MP', '/wd4251', '/bigobj'] # https://github.com/antlr/antlr4/blob/dev/runtime/Cpp/demo/CMakeLists.txt
 	# using /MD flag for antlr4_runtime (for Visual C++ compilers only)
 elif host_machine.system() == 'cygwin'
 	EXTRA_CXX_FLAGS += ['-Wa,-mbig-obj']
@@ -42,7 +42,7 @@ endif
 	  'ANTLR_BUILD_CPP_TESTS': false,
 	  'ANTLR_BUILD_SHARED': false,
 	  'ANTLR4_INSTALL': false,
-	  'CMAKE_CXX_FLAGS_RELEASE': ' '.join(EXTRA_CXX_FLAGS + ['-Wno-overloaded-virtual', '-Wno-unused-parameter']),
+	  'CMAKE_CXX_FLAGS_RELEASE': ' '.join(EXTRA_CXX_FLAGS),
 	  'CMAKE_POSITION_INDEPENDENT_CODE': true,
 	  'CMAKE_BUILD_TYPE': 'Release',
 	})
@@ -159,7 +159,7 @@ foreach parserTuple : ANTLR_PARSERS
 	
     parser_lib = static_library(name,
 	    parser_cpp_src + antlr_parser_parser_src_gen + antrl_parser_headers,
-        cpp_args: ['-Wno-unused-parameter', '-Wno-overloaded-virtual'] + EXTRA_CXX_FLAGS,
+        cpp_args: EXTRA_CXX_FLAGS,
         dependencies: [antlr4_cpp_dep],
         include_directories: [mainIncludeDir_inc, include_directories(genIncludeDir)],
     )

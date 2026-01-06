@@ -1,0 +1,21 @@
+1. create hc folder. (short folder name please!)
+
+2. open cmd with administrator
+cd e:\hc
+
+git clone https://github.com/poorren/hdlConvertor.git .
+
+3. create venv to build
+ py -3.10 -m venv venv
+
+4. activate this venv
+
+set PYTHON=e:\hc\venv\Scripts
+
+make sure MSbuild and ninja is in the path (ninja should be 1.11.0 at least)
+
+(venv) E:\hc>%PYTHON%\\python.exe -m pip install git+https://github.com/Nic30/hdlConvertorAst.git build
+
+(venv) E:\hc>%PYTHON%\\python.exe -m pip install -r requirements.txt
+
+(venv) E:\hc>%PYTHON%\\python.exe -m pip install .
